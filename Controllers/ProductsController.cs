@@ -1,16 +1,19 @@
+using FakeStoreProxyApi.Models;
+using FakeStoreProxyApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FakeStoreProxyApi.Controllers
+namespace FakeStoreProxyApi.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class ProductsController(ProductsService productsService) : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ProductsController : ControllerBase
+    private readonly ProductsService _productsService = productsService;
+
+    [HttpGet]
+    public async Task<ActionResult<List<Product>>> GetByCategory()
     {
-       
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok("hello");
-        }
+        var products = await _productsService.GetByCategoryAsync();
+        return Ok(products);
     }
 }
