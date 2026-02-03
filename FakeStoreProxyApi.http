@@ -1,0 +1,6 @@
+@FakeStoreProxyApi_HostAddress = http://localhost:5160
+
+GET {{FakeStoreProxyApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
