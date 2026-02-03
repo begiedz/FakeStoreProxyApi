@@ -6,8 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-var baseUrl = builder.Configuration.GetValue<string>("FakeStore:BaseUrl");
-var timeoutSeconds = builder.Configuration.GetValue<int>("FakeStore:TimeoutSeconds");
+var baseUrl = builder.Configuration.GetValue<string?>("FakeStore:BaseUrl")
+    ?? "https://fakestoreapi.com/";
+var timeoutSeconds = builder.Configuration.GetValue<int?>("FakeStore:TimeoutSeconds")
+    ?? 10;
 
 builder.Services.AddHttpClient<ProductsService>(client =>
 {
