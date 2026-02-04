@@ -14,7 +14,7 @@ public class ProductsController(IProductsService productsService) : ControllerBa
 
 
     /// <summary>
-    /// Searches products by name (case-insensitive) and returns a paged response.
+    /// Searches products by name and returns a paged response.
     /// </summary>
     /// <param name="request">Query params: name, page, pageSize.</param>
     /// <param name="ct">Cancellation token.</param>

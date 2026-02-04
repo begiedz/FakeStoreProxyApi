@@ -13,7 +13,7 @@ public class CategoriesController(IProductsService productsService) : Controller
     private readonly IProductsService _productsService = productsService;
 
     /// <summary>
-    /// Returns products from a given category (paged).
+    /// Returns products from a given category and returns a paged response.
     /// </summary>
     /// <param name="route">Route params: category.</param>
     /// <param name="pagination">Query params: page, pageSize.</param>
