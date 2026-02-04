@@ -7,9 +7,9 @@ namespace FakeStoreProxy.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class CategoriesController(ProductsService productsService) : ControllerBase
+public class CategoriesController(IProductsService productsService) : ControllerBase
 {
-    private readonly ProductsService _productsService = productsService;
+    private readonly IProductsService _productsService = productsService;
 
     [HttpGet("{Category}/products")]
     public async Task<ActionResult<PagedResponse<Product>>> GetByCategory(

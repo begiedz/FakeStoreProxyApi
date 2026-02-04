@@ -11,9 +11,9 @@ var baseUrl = builder.Configuration.GetValue<string?>("FakeStore:BaseUrl")
 var timeoutSeconds = builder.Configuration.GetValue<int?>("FakeStore:TimeoutSeconds")
     ?? 10;
 
-builder.Services.AddHttpClient<ProductsService>(client =>
+builder.Services.AddHttpClient<IProductsService, ProductsService>(client =>
 {
-    client.BaseAddress = new Uri(baseUrl!);
+    client.BaseAddress = new Uri(baseUrl);
     client.Timeout = TimeSpan.FromSeconds(timeoutSeconds);
 
 });
