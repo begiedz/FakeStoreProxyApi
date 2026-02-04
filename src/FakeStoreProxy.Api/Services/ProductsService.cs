@@ -22,7 +22,7 @@ public class ProductsService(HttpClient httpClient) : IProductsService
         var encodedCategory = Uri.EscapeDataString(normalizedCategory);
 
         string url = $"products/category/{encodedCategory}";
-        var res = await _httpClient.GetAsync(url, ct);
+        using var res = await _httpClient.GetAsync(url, ct);
 
 
         if ((int)res.StatusCode >= 500)
@@ -69,7 +69,7 @@ public class ProductsService(HttpClient httpClient) : IProductsService
 
         string url = $"products/";
 
-        var res = await _httpClient.GetAsync(url, ct);
+        using var res = await _httpClient.GetAsync(url, ct);
 
         if ((int)res.StatusCode >= 500)
             throw new HttpRequestException($"Provider error: {(int)res.StatusCode}");
