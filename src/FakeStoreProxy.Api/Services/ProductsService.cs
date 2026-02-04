@@ -23,7 +23,7 @@ public class ProductsService(HttpClient httpClient) : IProductsService
 
         string url = $"products/category/{encodedCategory}";
         var res = await _httpClient.GetAsync(url, ct);
-        
+
 
         if ((int)res.StatusCode >= 500)
             throw new HttpRequestException($"Provider error: {(int)res.StatusCode}");
@@ -34,7 +34,7 @@ public class ProductsService(HttpClient httpClient) : IProductsService
                 Items = new List<Product>(),
                 Pagination = new PaginationMetadata(0, page, pageSize)
             };
-        
+
 
         res.EnsureSuccessStatusCode();
 
@@ -100,7 +100,7 @@ public class ProductsService(HttpClient httpClient) : IProductsService
             .ToList();
 
 
-        return new PagedResponse<Product> 
+        return new PagedResponse<Product>
         {
             Items = items,
             Pagination = new PaginationMetadata(totalItems, page, pageSize)
@@ -112,7 +112,7 @@ public class ProductsService(HttpClient httpClient) : IProductsService
         if (page < 1)
             throw new ArgumentException("page must be greater than or equal to 1.", nameof(page));
 
-        if (pageSize < 1 || pageSize >= 20 )
+        if (pageSize < 1 || pageSize > 20)
             throw new ArgumentException("pageSize must be between 1 and 20.", nameof(pageSize));
     }
 }
