@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/FakeStoreProxy.Api/FakeStoreProxy.Api.csproj" />
+  <Project Path="tests/FakeStoreProxy.Tests/FakeStoreProxy.Tests.csproj" />
+</Solution>
