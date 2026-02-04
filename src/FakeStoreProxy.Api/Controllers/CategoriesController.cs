@@ -13,14 +13,13 @@ public class CategoriesController(IProductsService productsService) : Controller
     private readonly IProductsService _productsService = productsService;
 
     /// <summary>
-    /// Returns products from a given category (paged).
+    /// Returns products from a given category and returns a paged response.
     /// </summary>
     /// <param name="route">Route params: category.</param>
     /// <param name="pagination">Query params: page, pageSize.</param>
     /// <param name="ct">Cancellation token.</param>
     /// <returns>Paged list of products.</returns>
     [HttpGet("{Category}/products")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(PagedResponse<Product>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status502BadGateway)]
@@ -34,8 +33,6 @@ public class CategoriesController(IProductsService productsService) : Controller
         try
         {
             var products = await _productsService.GetByCategoryAsync(route.Category, pagination.Page, pagination.PageSize, ct);
-
-            if (products.Items.Count == 0) return NoContent();
 
             return Ok(products);
         }

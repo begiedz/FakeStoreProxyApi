@@ -14,13 +14,12 @@ public class ProductsController(IProductsService productsService) : ControllerBa
 
 
     /// <summary>
-    /// Searches products by name (case-insensitive) and returns a paged response.
+    /// Searches products by name and returns a paged response.
     /// </summary>
     /// <param name="request">Query params: name, page, pageSize.</param>
     /// <param name="ct">Cancellation token.</param>
     /// <returns>Paged list of matching products.</returns>
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(PagedResponse<Product>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status502BadGateway)]
@@ -32,8 +31,6 @@ public class ProductsController(IProductsService productsService) : ControllerBa
         try
         {
             var products = await _productsService.GetByNameAsync(request.Name, request.Page, request.PageSize, ct);
-
-            if (products.Items.Count == 0) return NoContent();
 
             return Ok(products);
         }

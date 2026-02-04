@@ -3,9 +3,9 @@ using System.Net;
 
 namespace FakeStoreProxy.Api.Services;
 
-public class ProductsService(HttpClient httpClient) : IProductsService
+public class ProductsService(IHttpClientFactory httpClientFactory) : IProductsService
 {
-    private readonly HttpClient _httpClient = httpClient;
+    private readonly HttpClient _httpClient = httpClientFactory.CreateClient("FakeStore");
 
     public async Task<PagedResponse<Product>> GetByCategoryAsync(
         string category,
