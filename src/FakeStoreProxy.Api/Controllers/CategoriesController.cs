@@ -1,6 +1,7 @@
 ﻿using FakeStoreProxy.Api.Requests;
 using FakeStoreProxy.Api.Models;
 using FakeStoreProxy.Api.Services;
+using FakeStoreProxy.Api.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FakeStoreProxy.Api.Controllers;
@@ -19,6 +20,7 @@ public class CategoriesController(IProductsService productsService) : Controller
     /// <param name="ct">Cancellation token.</param>
     /// <returns>Paged list of products.</returns>
     [HttpGet("{Category}/products")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(PagedResponse<Product>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status502BadGateway)]
@@ -28,10 +30,19 @@ public class CategoriesController(IProductsService productsService) : Controller
       [FromQuery] PaginationRequest pagination,
       CancellationToken ct = default)
     {
-        var products = await _productsService.GetByCategoryAsync(
-            route.Category, pagination.Page, pagination.PageSize, ct);
 
-        return Ok(products);
+        try
+        {
+            var products = await _productsService.GetByCategoryAsync(route.Category, pagination.Page, pagination.PageSize, ct);
+
+            if (products.Items.Count == 0) return NoContent();
+
+            return Ok(products);
+        }
+        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
+        {
+            return this.HandleUpstream(ex);
+        }
     }
 
 }
