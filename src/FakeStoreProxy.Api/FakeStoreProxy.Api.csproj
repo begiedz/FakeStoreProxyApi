@@ -7,6 +7,9 @@
     <UserSecretsId>b72be5af-e7a0-4cc1-af07-85ac9d09b0d7</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
+      <!-- XML docs for Swagger -->
+      <GenerateDocumentationFile>true</GenerateDocumentationFile>
+      <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
