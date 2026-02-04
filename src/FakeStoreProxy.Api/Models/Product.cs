@@ -1,14 +1,18 @@
 ﻿namespace FakeStoreProxy.Api.Models;
 
-public record Rating(decimal Rate, int Count);
+public sealed record Rating
+{
+    public decimal Rate { get; init; }
+    public int Count { get; init; }
+}
 
-public record Product
-(
-    int Id,
-    string Title,
-    decimal Price,
-    string Description,
-    string Category,
-    string Image,
-    Rating Rating
-);
+public sealed record Product
+{
+    public int Id { get; init; }
+    public string Title { get; init; } = default!;
+    public decimal Price { get; init; }
+    public string Description { get; init; } = default!;
+    public string Category { get; init; } = default!;
+    public string Image { get; init; } = default!;
+    public Rating Rating { get; init; } = default!;
+}

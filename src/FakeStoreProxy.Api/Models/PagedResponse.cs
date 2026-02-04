@@ -1,7 +1,12 @@
-﻿namespace FakeStoreProxy.Api.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FakeStoreProxy.Api.Models;
 
 public sealed class PagedResponse<T>
 {
-    public required List<T> Items { get; init; }
-    public required PaginationMetadata Pagination { get; init; }
+    [Required]
+    public required List<T> Items { get; init; } = [];
+
+    [Required]
+    public required PaginationMetadata Pagination { get; init; } = default!;
 }

@@ -20,7 +20,6 @@ public class ProductsController(IProductsService productsService) : ControllerBa
     /// <param name="ct">Cancellation token.</param>
     /// <returns>Paged list of matching products.</returns>
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(PagedResponse<Product>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status502BadGateway)]
